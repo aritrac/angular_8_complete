@@ -1,10 +1,10 @@
 <div
     class="panel panel-default">
-    <div class="panel-heading">{{ element.name }}</div>
+    <!-- <div class="panel-heading">{{ element.name }}</div> -->
+    <!-- #heading below will be used to refer this following div element as ViewChild in the component typescript -->
+    <!-- as this is a part of the component template and is not being injected from a parent component -->
+    <div class="panel-heading" #heading>{{ name }}</div>
     <div class="panel-body">
-    <p>
-        <strong *ngIf="element.type === 'server'" style="color: red">{{ element.content }}</strong>
-        <strong *ngIf="element.type === 'blueprint'" style="color: blue">{{ element.content }}</strong>
-    </p>
+        <ng-content></ng-content>
     </div>
 </div>

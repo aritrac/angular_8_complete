@@ -4,8 +4,20 @@
   <hr>
   <div class="row">
     <div class="col-xs-12">
+      <button class="btn btn-primary" (click)="onChangeFirst()">Change first element</button>
+      <button class="btn btn-danger" (click)="onDestroyFirst()">Destroy First Component</button>
       <app-server-element *ngFor="let serverElement of serverElements"
-      [srvElement]="serverElement"></app-server-element>
+      [srvElement]="serverElement"
+      [name]="serverElement.name">
+      <!-- This template below should ideally be inside server-element.component.html but just to demonstrate ng-content directive we are doing like this -->
+      <!-- Normally angular skips any html between open and closing tags of custom components, but if we put any html between the open and closing tag -->
+      <!-- of a custom component, we need to make sure we put the <ng-content> tag in the component template to include this html and render it -->
+      <!-- #contentParagraph will be used in the server-element.component.ts as a ContentChild as this content is being injected into the component template -->
+      <p #contentParagraph>
+        <strong *ngIf="serverElement.type === 'server'" style="color: red">{{ serverElement.content }}</strong>
+        <strong *ngIf="serverElement.type === 'blueprint'" style="color: blue">{{ serverElement.content }}</strong>
+      </p>
+    </app-server-element>
     </div>
   </div>
 </div>

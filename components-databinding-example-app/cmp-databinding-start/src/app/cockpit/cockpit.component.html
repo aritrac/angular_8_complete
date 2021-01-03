@@ -9,7 +9,11 @@
              class="form-control"
              #serverNameInput> <!--This is the local reference for this input element-->
       <label>Server Content</label>
-      <input type="text" class="form-control" [(ngModel)]="newServerContent">
+      <!-- This is being commented out to demonstrate how @ViewChild decorator works as shown below -->
+      <!-- <input type="text" class="form-control" [(ngModel)]="newServerContent"> -->
+      <input type="text" 
+             class="form-control" 
+             #serverContentInput>
       <br>
       <button
         class="btn btn-primary"
