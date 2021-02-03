@@ -14,9 +14,13 @@ const appRoutes: Routes = [
     { path: 'users', component: UsersComponent, children: [
       { path: ':id/:name', component: UserComponent}
     ]}, 
-    { path: 'servers',canActivate: [AuthGuard], component: ServersComponent, children: [
-      { path: ':id', component: ServerComponent},
-      { path: ':id/edit', component: EditServerComponent}
+    { path: 'servers',
+      //canActivate: [AuthGuard], //for parent routes
+      canActivateChild: [AuthGuard], //for child routes
+      component: ServersComponent, 
+      children: [
+        { path: ':id', component: ServerComponent},
+        { path: ':id/edit', component: EditServerComponent}
     ]},
     {path: 'not-found', component: PageNotFoundComponent},
     {path: '**', redirectTo: '/not-found'} //catch all paths that we dont know about
