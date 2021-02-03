@@ -32,6 +32,8 @@ const appRoutes: Routes = [
   
 @NgModule({
     imports: [
+        //For older web server compatibility which doesnt return index.html and allow angular to process the request and throws a 404
+        //RouterModule.forRoot(appRoutes, {useHash: true})
         RouterModule.forRoot(appRoutes)
     ],
     exports: [RouterModule]
