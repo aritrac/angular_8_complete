@@ -52,5 +52,7 @@ export class AppComponent {
     this.user.answer = this.signupForm.value.questionAnswer;
     this.user.gender = this.signupForm.value.gender;
     console.log(this.signupForm);
+
+    //this.signupForm.reset(); This line if uncommented would be like the form was reloaded
   }
 }
