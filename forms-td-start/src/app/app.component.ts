@@ -13,7 +13,23 @@ export class AppComponent {
   genders = ['male','female'];
 
   suggestUserName() {
+    //overwrite the model data
     const suggestedName = 'Superuser';
+    // this.signupForm.setValue({
+    //   userData: {
+    //     username: suggestedName,
+    //     email: ''
+    //   },
+    //   secret: 'pet',
+    //   questionAnswer: '',
+    //   gender: 'male'
+    // });
+    //Overwrite specific model data
+    this.signupForm.form.patchValue({
+      userData: {
+        username: suggestedName
+      }
+    });
   }
 
   // onSubmit(form : NgForm){
