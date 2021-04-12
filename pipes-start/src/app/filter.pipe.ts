@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'filter'
+  name: 'filter',
+  pure: false //To run the pipe whenever the server array changes, which by default doesn't happen
 })
 export class FilterPipe implements PipeTransform {
 
