@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpEventType, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Post } from "./post.model";
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, tap } from 'rxjs/operators';
 import { Subject, throwError } from "rxjs";
 
 @Injectable({providedIn:'root'}) //This can also be written in the providers array of the app.module.ts
@@ -14,7 +14,10 @@ export class PostsService{
         const postData: Post = {title: title, content: content}
         this.http
         .post<{name: string}>('https://ng-complete-guide-90aad-default-rtdb.firebaseio.com/posts.json'
-        ,postData)
+        ,postData,
+        {
+            observe: 'response' //with observe we can change the kind of data we get back by asking angular to give us exactly what we need, if we need just the body then we pass body, if we need the full response then we pass response here.
+        })
         .subscribe(responseData => {
       console.log(responseData)
     },error => {
@@ -48,6 +51,17 @@ export class PostsService{
     }
 
     deletePosts(){
-        return this.http.delete('https://ng-complete-guide-90aad-default-rtdb.firebaseio.com/posts.json');
+        return this.http.delete('https://ng-complete-guide-90aad-default-rtdb.firebaseio.com/posts.json',
+        {
+            observe: 'events'
+        }).pipe(tap(event => {
+            console.log(event)
+            if(event.type === HttpEventType.Sent){
+                //do some user notification to tell the user the request was sent
+            }
+            if(event.type === HttpEventType.Response){
+                console.log(event.body);
+            }
+        }));
     }
 }
