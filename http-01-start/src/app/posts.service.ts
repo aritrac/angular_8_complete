@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { Post } from "./post.model";
-import { map } from 'rxjs/operators';
-import { Subject } from "rxjs";
+import { map, catchError } from 'rxjs/operators';
+import { Subject, throwError } from "rxjs";
 
 @Injectable({providedIn:'root'}) //This can also be written in the providers array of the app.module.ts
 export class PostsService{
@@ -32,6 +32,10 @@ export class PostsService{
                     postsArray.push({...responseData[key], id: key}); //The spread operator ... takes out the key value pair from the object
                 }
                 return postsArray;
+            }),
+            catchError(errorRes => {
+                //send to analytics server
+                return throwError(errorRes);
             }));
     }
 
