@@ -2,9 +2,11 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { Post } from "./post.model";
 import { map } from 'rxjs/operators';
+import { Subject } from "rxjs";
 
 @Injectable({providedIn:'root'}) //This can also be written in the providers array of the app.module.ts
 export class PostsService{
+    error = new Subject<string>();
 
     constructor(private http: HttpClient) {} //Inject http service into this service
 
@@ -15,6 +17,8 @@ export class PostsService{
         ,postData)
         .subscribe(responseData => {
       console.log(responseData)
+    },error => {
+        this.error.next(error.message);
     });
     }
 
