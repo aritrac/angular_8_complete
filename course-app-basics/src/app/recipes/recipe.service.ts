@@ -9,22 +9,24 @@ export class RecipeService {
 
     recipesChanged = new Subject<Recipe[]>();
 
-    private recipes: Recipe[] = [
-        new Recipe('Paw Bhaji',
-        'This is simply a test',
-        'https://c.ndtvimg.com/2019-01/nqbcj8k_pav-bhaji_625x300_25_January_19.jpg',
-        [
-            new Ingredient('Bread',2),
-            new Ingredient('Paw Bhaji Masala',1)
-        ]),
-        new Recipe('Butter Chicken',
-        'This is simply a test',
-        'https://www.daringgourmet.com/wp-content/uploads/2018/07/Butter-Chicken-1-square.jpg',
-        [
-            new Ingredient('Butter',2),
-            new Ingredient('Chicken',2)
-        ])
-      ];
+    // private recipes: Recipe[] = [
+    //     new Recipe('Paw Bhaji',
+    //     'This is simply a test',
+    //     'https://c.ndtvimg.com/2019-01/nqbcj8k_pav-bhaji_625x300_25_January_19.jpg',
+    //     [
+    //         new Ingredient('Bread',2),
+    //         new Ingredient('Paw Bhaji Masala',1)
+    //     ]),
+    //     new Recipe('Butter Chicken',
+    //     'This is simply a test',
+    //     'https://www.daringgourmet.com/wp-content/uploads/2018/07/Butter-Chicken-1-square.jpg',
+    //     [
+    //         new Ingredient('Butter',2),
+    //         new Ingredient('Chicken',2)
+    //     ])
+    //   ];
+
+    private recipes: Recipe[] = [];
 
     constructor(private shoppingListService: ShoppingListService){}
 
