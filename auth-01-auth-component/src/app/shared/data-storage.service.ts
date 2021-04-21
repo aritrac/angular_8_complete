@@ -27,26 +27,21 @@ export class DataStorageService {
     //this is the on-demand way of checking a subscribed value
     //exhaustMap waits for the first observable that is user to return data, then unsubscribes from that observable,
     //then it is replaced by the http observable in the observable chain, and finally the http observable is returned to the outside world
-    return this.authService.user.pipe(take(1), exhaustMap(user => {
-      return this.http
-        .get<Recipe[]>(
-          'https://ng-course-recipe-book-2c7bc-default-rtdb.firebaseio.com//recipes.json',
-          {
-            params: new HttpParams().set('auth', user.token) //setting the user token
-          }
-        );
-    }),
-      map(recipes => {
-        return recipes.map(recipe => {
-          return {
-            ...recipe,
-            ingredients: recipe.ingredients ? recipe.ingredients : []
-          };
-        });
-      }),
-      tap(recipes => {
-        this.recipeService.setRecipes(recipes);
-      })
-    );
+    return this.http
+      .get<Recipe[]>(
+        'https://ng-course-recipe-book-2c7bc-default-rtdb.firebaseio.com//recipes.json',
+      ).pipe(
+        map(recipes => {
+          return recipes.map(recipe => {
+            return {
+              ...recipe,
+              ingredients: recipe.ingredients ? recipe.ingredients : []
+            };
+          });
+        }),
+        tap(recipes => {
+          this.recipeService.setRecipes(recipes);
+        })
+      );
   }
 }
