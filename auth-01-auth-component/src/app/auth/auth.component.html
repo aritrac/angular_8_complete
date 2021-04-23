@@ -4,6 +4,8 @@
       <p>{{ error }}</p>
     </div> -->
     <!-- <app-alert [message]="error" *ngIf="error" (close)="onHandleError()"></app-alert> -->
+    <!-- This ng-template will provide the coordinates in DOM to dynamically generate the error modal dialog which was achieved with the above two commented out sections as well -->
+    <ng-template appPlaceHolder></ng-template>
     <div *ngIf="isLoading" style="text-align: center;">
       <app-loading-spinner></app-loading-spinner>
     </div>
