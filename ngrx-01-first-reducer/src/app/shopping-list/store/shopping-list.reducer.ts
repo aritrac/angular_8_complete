@@ -24,6 +24,14 @@ export function shoppingListReducer(
         ...state,
         ingredients: [...state.ingredients, ...action.payload]
       }
+    case ShoppingListActions.UPDATE_INGREDIENT:
+      return {
+        ...state
+      }
+    case ShoppingListActions.DELETE_INGREDIENT:
+      return {
+        ...state
+      }
     default:
       return state;
   }
