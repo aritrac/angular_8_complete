@@ -8,11 +8,11 @@ import {
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 import { AuthService, AuthResponseData } from './auth.service';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { PlaceholderDirective } from '../shared/placeholder/placeholder.directive';
-import { Store } from '@ngrx/store';
 import * as fromApp from '../store/app.reducer';
 import * as AuthActions from './store/auth.actions';
 
@@ -36,18 +36,18 @@ export class AuthComponent implements OnInit, OnDestroy {
     private store: Store<fromApp.AppState>
   ) {}
 
-  onSwitchMode() {
-    this.isLoginMode = !this.isLoginMode;
-  }
-
-  ngOnInit(){
+  ngOnInit() {
     this.storeSub = this.store.select('auth').subscribe(authState => {
       this.isLoading = authState.loading;
       this.error = authState.authError;
-      if(this.error) {
+      if (this.error) {
         this.showErrorAlert(this.error);
       }
-    })
+    });
+  }
+
+  onSwitchMode() {
+    this.isLoginMode = !this.isLoginMode;
   }
 
   onSubmit(form: NgForm) {
@@ -58,10 +58,14 @@ export class AuthComponent implements OnInit, OnDestroy {
     const password = form.value.password;
 
     if (this.isLoginMode) {
-      //authObs = this.authService.login(email, password);
-      this.store.dispatch(new AuthActions.LoginStart({email: email, password: password}))
+      // authObs = this.authService.login(email, password);
+      this.store.dispatch(
+        new AuthActions.LoginStart({ email: email, password: password })
+      );
     } else {
-      this.store.dispatch(new AuthActions.SignupStart({email: email, password: password}));
+      this.store.dispatch(
+        new AuthActions.SignupStart({ email: email, password: password })
+      );
     }
 
     form.reset();
@@ -75,7 +79,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     if (this.closeSub) {
       this.closeSub.unsubscribe();
     }
-    if(this.storeSub){
+    if (this.storeSub) {
       this.storeSub.unsubscribe();
     }
   }
