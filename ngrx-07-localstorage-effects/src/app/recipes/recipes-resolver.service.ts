@@ -6,7 +6,6 @@ import {
 } from '@angular/router';
 
 import { Recipe } from './recipe.model';
-import { RecipeService } from './recipe.service';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../store/app.reducer';
 import * as RecipesActions from '../recipes/store/recipe.actions';
@@ -17,15 +16,14 @@ import { of } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class RecipesResolverService implements Resolve<Recipe[]> {
   constructor(
-    private recipesService: RecipeService,
     private store: Store<fromApp.AppState>,
     private actions$: Actions
   ) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const recipes = this.recipesService.getRecipes();
+    //const recipes = this.recipesService.getRecipes();
 
-    if (recipes.length === 0) {
+    //if (recipes.length === 0) {
       //return this.dataStorageService.fetchRecipes();
       return this.store.select('recipes').pipe(
         take(1),
@@ -43,8 +41,8 @@ export class RecipesResolverService implements Resolve<Recipe[]> {
           }
         })
       );
-    } else {
-      return recipes;
-    }
+    // } else {
+    //   return recipes;
+    // }
   }
 }
